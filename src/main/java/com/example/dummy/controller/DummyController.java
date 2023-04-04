@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import com.example.dummy.schema.Dummy;
 import com.example.dummy.service.DummyService;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -27,6 +30,16 @@ public class DummyController {
     @GetMapping
     public List<Dummy> dummyGetAllFunction() {
         return serviceController.getAllService();
+    }
+
+    @GetMapping("{id}")
+    public Optional<Dummy> dummyGetOneFunction(@PathVariable("id") int id) {
+        return serviceController.getOneService(id);
+    }
+
+    @DeleteMapping("{id}")
+    public void dummyDeleteFunction(@PathVariable("id") int id) {
+        serviceController.deleteService(id);
     }
     
 }
