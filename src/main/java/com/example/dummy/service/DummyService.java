@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.dummy.schema.Dummy;
 import com.example.dummy.repository.DummyRepository;
+import com.example.dummy.helper.exception.NotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +23,18 @@ public class DummyService {
     }
 
     public Optional<Dummy> getOneService(int id) {
-        Optional<Dummy> data = dummyRepository.getOneDummy(id);  
+        Optional<Dummy> data = dummyRepository.getOneDummy(id);
+        if(data.isEmpty())
+            throw new NotFoundException("data not found");  
         return data;
     }
 
     public void deleteService(int id) {
-        dummyRepository.deleteDummy(id);
+        Optional<Dummy> data = dummyRepository.getOneDummy(id);
+        if(data.isEmpty())
+            throw new NotFoundException("data not found");
+        else  
+            dummyRepository.deleteDummy(id);
     }
     
 }
