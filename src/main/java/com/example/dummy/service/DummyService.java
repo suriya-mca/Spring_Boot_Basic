@@ -2,9 +2,12 @@ package com.example.dummy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 import com.example.dummy.schema.Dummy;
 import com.example.dummy.repository.DummyRepository;
 import com.example.dummy.helper.exception.NotFoundException;
+import com.example.dummy.helper.response.ResponseHandler;
+import org.springframework.http.HttpStatus;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,27 +17,38 @@ public class DummyService {
     @Autowired
     private DummyRepository dummyRepository;
 
-    public void addService(Dummy dummy) {
-        dummyRepository.addDummy(dummy);
+    public ResponseEntity<Object> addService(Dummy dummy) {
+        return ResponseHandler.responseBuilder(
+            "saved successfully!", 
+            HttpStatus.CREATED, 
+            dummyRepository.addDummy(dummy)
+        );
     }
 
     public List<Dummy> getAllService() {
         return dummyRepository.getAllDummy();
     }
 
-    public Optional<Dummy> getOneService(int id) {
+    public ResponseEntity<Object> getOneService(int id) {
         Optional<Dummy> data = dummyRepository.getOneDummy(id);
         if(data.isEmpty())
             throw new NotFoundException("data not found");  
-        return data;
+        return ResponseHandler.responseBuilder(
+            "requested details are given here", 
+            HttpStatus.OK, 
+            data
+        );
     }
 
-    public void deleteService(int id) {
+    public ResponseEntity<Object> deleteService(int id) {
         Optional<Dummy> data = dummyRepository.getOneDummy(id);
         if(data.isEmpty())
             throw new NotFoundException("data not found");
-        else  
-            dummyRepository.deleteDummy(id);
+        return ResponseHandler.responseBuilder(
+            "deleted successfully!", 
+            HttpStatus.OK, 
+            dummyRepository.deleteDummy(id)
+        );
     }
     
 }

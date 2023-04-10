@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.ResponseEntity;
 import com.example.dummy.schema.Dummy;
 import com.example.dummy.service.DummyService;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -23,8 +23,8 @@ public class DummyController {
     private DummyService serviceController;
 
     @PostMapping
-    public void dummyPostFunction(@RequestBody Dummy dummy) {
-        serviceController.addService(dummy);
+    public ResponseEntity<Object> dummyPostFunction(@RequestBody Dummy dummy) {
+        return serviceController.addService(dummy);
     }
 
     @GetMapping
@@ -33,13 +33,13 @@ public class DummyController {
     }
 
     @GetMapping("{id}")
-    public Optional<Dummy> dummyGetOneFunction(@PathVariable("id") int id) {
+    public ResponseEntity<Object> dummyGetOneFunction(@PathVariable("id") int id) {
         return serviceController.getOneService(id);
     }
 
     @DeleteMapping("{id}")
-    public void dummyDeleteFunction(@PathVariable("id") int id) {
-        serviceController.deleteService(id);
+    public ResponseEntity<Object> dummyDeleteFunction(@PathVariable("id") int id) {
+        return serviceController.deleteService(id);
     }
     
 }
