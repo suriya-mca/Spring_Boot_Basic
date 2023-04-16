@@ -1,6 +1,5 @@
 package com.example.dummy.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +18,11 @@ import java.util.List;
 @RequestMapping(path = "/api/v1", produces = "application/json")
 public class DummyController {
 
-    @Autowired
-    private DummyService serviceController;
+    private final DummyService serviceController;
+
+    public DummyController(DummyService serviceController) {
+        this.serviceController = serviceController;
+    }
 
     @PostMapping
     public ResponseEntity<Object> dummyPostFunction(@RequestBody Dummy dummy) {

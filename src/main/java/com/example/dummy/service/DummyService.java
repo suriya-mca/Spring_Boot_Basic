@@ -1,6 +1,5 @@
 package com.example.dummy.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
 import com.example.dummy.schema.Dummy;
@@ -14,8 +13,11 @@ import java.util.Optional;
 @Service
 public class DummyService {
 
-    @Autowired
-    private DummyRepository dummyRepository;
+    private final DummyRepository dummyRepository;
+
+    public DummyService(DummyRepository dummyRepository) {
+        this.dummyRepository = dummyRepository;
+    }
 
     public ResponseEntity<Object> addService(Dummy dummy) {
         return ResponseHandler.responseBuilder(
@@ -32,7 +34,7 @@ public class DummyService {
     public ResponseEntity<Object> getOneService(int id) {
         Optional<Dummy> data = dummyRepository.getOneDummy(id);
         if(data.isEmpty())
-            throw new NotFoundException("data not found");  
+            throw new NotFoundException("data not found");
         return ResponseHandler.responseBuilder(
             "requested details are given here", 
             HttpStatus.OK, 
