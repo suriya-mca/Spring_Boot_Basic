@@ -33,7 +33,7 @@
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-undertow</artifactId>
-			    <!-- Exclude undertow-websockets-jsr dependency-->
+			    <!-- Exclude undertow-websockets-jsr dependency -->
 				<exclusions>
 					<exclusion>
 						<groupId>io.undertow</groupId>
@@ -69,6 +69,11 @@
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<!-- Rsdis Driver(Cache) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
 	</dependencies>
