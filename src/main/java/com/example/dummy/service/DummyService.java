@@ -7,6 +7,7 @@ import com.example.dummy.repository.DummyRepository;
 import com.example.dummy.helper.exception.NotFoundException;
 import com.example.dummy.helper.response.ResponseHandler;
 import org.springframework.cache.annotation.Cacheable;
+// import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class DummyService {
         this.dummyRepository = dummyRepository;
     }
 
+    // @CachePut(cacheNames = "cache1", key = "#dummy.id")
     public ResponseEntity<Object> addService(Dummy dummy) {
         return ResponseHandler.responseBuilder(
             "saved successfully!", 
